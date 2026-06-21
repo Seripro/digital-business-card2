@@ -3,11 +3,12 @@ from fastapi.security import HTTPBearer
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import engine
-from app.models import skill
+from app.models import skill, user_skill
 from app.routers.skill import router as skill_router
 
 # サーバー起動時にテーブルを作成
 skill.Base.metadata.create_all(bind=engine)
+user_skill.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 security = HTTPBearer(auto_error=False)
