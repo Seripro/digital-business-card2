@@ -7,4 +7,4 @@ class SkillService:
     @staticmethod
     def get_all_skills(data: SkillSearchRequest, db: Session):
         skills = SkillRepository.get_all_skills(data, db)
-        return skills
+        return {"data": skills}
