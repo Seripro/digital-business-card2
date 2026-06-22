@@ -6,8 +6,10 @@ type UserResponse = {
   data: User[];
 };
 
+const API_BASE_URL = "http://localhost:8000";
+
 export const getAllUsers = async () => {
-  const res = await fetch("http://localhost:8000/users");
+  const res = await fetch(`${API_BASE_URL}/users`);
   const { data }: UserResponse = await res.json();
   return data.map((user) => {
     return {
@@ -22,7 +24,7 @@ export const getAllUsers = async () => {
 };
 
 export const getUserById = async (UserId: string) => {
-  const res = await fetch(`http://localhost:8000/users/${UserId}`);
+  const res = await fetch(`${API_BASE_URL}/users/${UserId}`);
   const rowData = await res.json();
   const data: User = rowData.data;
   return {
@@ -36,14 +38,14 @@ export const getUserById = async (UserId: string) => {
 };
 
 export const getSkillIdsByUserId = async (UserId: string) => {
-  const res = await fetch(`http://localhost:8000/user_skill/${UserId}`);
+  const res = await fetch(`${API_BASE_URL}/user_skill/${UserId}`);
   const rowData = await res.json();
   const data: UserSkill[] = rowData.data;
   return data.map((item) => item.skill_id);
 };
 
 export const getSkillsBySkillIds = async (SkillIds: number[]) => {
-  const res = await fetch("http://localhost:8000/skills", {
+  const res = await fetch(`${API_BASE_URL}/skills`, {
     method: "POST", // POSTメソッドを指定
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -62,7 +64,7 @@ export const getSkillsByUserId = async (UserId: string) => {
 };
 
 export const insertUser = async (user: User) => {
-  const res = await fetch("http://localhost:8000/users", {
+  const res = await fetch(`${API_BASE_URL}/users`, {
     method: "POST", // POSTメソッドを指定
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user), // FastAPIのCreateUserに直接合わせる
@@ -73,7 +75,7 @@ export const insertUser = async (user: User) => {
 };
 
 export const insertUserSkill = async (userSkill: UserSkill) => {
-  const res = await fetch("http://localhost:8000/user_skill", {
+  const res = await fetch(`${API_BASE_URL}/user_skill`, {
     method: "POST", // POSTメソッドを指定
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userSkill), // FastAPIのUserSkillCreateに直接合わせる
